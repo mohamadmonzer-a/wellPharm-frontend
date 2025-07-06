@@ -5,3 +5,9 @@ fetch('https://wellpharm-backend.onrender.com/api/products')
     // Use data to update your HTML page dynamically
   })
   .catch(error => console.error('Error fetching products:', error));
+
+
+
+function addToCart(productName) {
+  alert(`🛒 Added "${productName}" to cart!`);
+}

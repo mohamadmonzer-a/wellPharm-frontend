@@ -1,11 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mini AliExpress</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    
+
+  <header>
+    <div class="navbar">
+      <img src="assets/logo.png" alt="Logo" class="logo">
+      <input type="text" placeholder="Search products..." class="search-bar">
+      <button class="cart-btn">🛒 Cart</button>
+    </div>
+  </header>
+
+  <nav class="categories">
+    <ul>
+      <li>Electronics</li>
+      <li>Beauty</li>
+      <li>Health</li>
+      <li>Home</li>
+      <li>Kids</li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <h2>🔥 Big Discounts This Week!</h2>
+    <p>Up to 50% off on selected items</p>
+  </section>
+
+  <section class="products">
+    <div class="product-card">
+      <img src="assets/sample-product.jpg" alt="Product">
+      <h3>Smartwatch 2025</h3>
+      <p>$49.99</p>
+      <button onclick="addToCart('Smartwatch 2025')">Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="assets/sample-product.jpg" alt="Product">
+      <h3>Wireless Earbuds</h3>
+      <p>$29.99</p>
+      <button onclick="addToCart('Wireless Earbuds')">Add to Cart</button>
+    </div>
+    <!-- Add more products here -->
+  </section>
+
+  <footer>
+    <p>© 2025 wellPharm. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
