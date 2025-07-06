@@ -1,11 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("product-list");
   const loginForm = document.getElementById("login-form");
+  const authSection = document.getElementById("auth-section");
   const logoutBtn = document.getElementById("logout-btn");
   const welcomeMsg = document.getElementById("welcome-msg");
   const loginError = document.getElementById("login-error");
   const googleSigninBtn = document.querySelector(".g_id_signin");
-  const authSection = document.getElementById("auth-section");
+  const userInfo = document.getElementById("user-info");
+  const userPic = document.getElementById("user-pic");
 
   // Load products from backend
   async function loadProducts() {
@@ -54,30 +56,47 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Show logged in UI
-  function setLoggedIn(token) {
+  function setLoggedIn(token, profilePictureUrl = null) {
     const userData = decodeJwt(token);
     if (!userData) return;
 
     welcomeMsg.textContent = `Welcome, ${userData.sub}`;
     loginError.textContent = "";
-    loginForm.style.display = "none";
+
+    authSection.style.display = "none";
     googleSigninBtn.style.display = "none";
+
+    userInfo.style.display = "flex";
     logoutBtn.style.display = "inline-block";
+
+    // Show user picture or fallback
+    if (profilePictureUrl) {
+      userPic.src = profilePictureUrl;
+    } else {
+      // Use a placeholder image or gravatar if you want
+      userPic.src = "assets/default-user.png"; 
+    }
   }
 
   // Show logged out UI
   function setLoggedOut() {
     welcomeMsg.textContent = "";
     loginError.textContent = "";
-    loginForm.style.display = "block";
+
+    authSection.style.display = "block";
     googleSigninBtn.style.display = "block";
+
+    userInfo.style.display = "none";
     logoutBtn.style.display = "none";
+
+    userPic.src = "";
   }
 
-  // On page load, check token
+  // On page load, check token and user info in localStorage
   const savedToken = localStorage.getItem("token");
+  const savedUserPic = localStorage.getItem("userPic"); // we'll save pic on login
   if (savedToken) {
-    setLoggedIn(savedToken);
+    setLoggedIn(savedToken, savedUserPic);
   } else {
     setLoggedOut();
   }
@@ -85,6 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Logout button click
   logoutBtn.addEventListener("click", () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userPic");
     setLoggedOut();
   });
 
@@ -106,6 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (res.ok) {
         localStorage.setItem("token", data.access_token);
+        localStorage.removeItem("userPic"); // no pic for password login
         setLoggedIn(data.access_token);
       } else {
         loginError.textContent = data.detail || "Login failed";
@@ -123,6 +144,8 @@ async function handleGoogleCredentialResponse(response) {
   const loginForm = document.getElementById("login-form");
   const logoutBtn = document.getElementById("logout-btn");
   const googleSigninBtn = document.querySelector(".g_id_signin");
+  const userInfo = document.getElementById("user-info");
+  const userPic = document.getElementById("user-pic");
 
   loginError.textContent = "";
 
@@ -137,7 +160,7 @@ async function handleGoogleCredentialResponse(response) {
     if (res.ok) {
       localStorage.setItem("token", data.access_token);
 
-      // Decode token for user email
+      // Decode token for user email and picture (if your backend adds picture URL in token)
       const base64Url = data.access_token.split('.')[1];
       const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
       const jsonPayload = decodeURIComponent(
@@ -148,10 +171,24 @@ async function handleGoogleCredentialResponse(response) {
       );
       const userData = JSON.parse(jsonPayload);
 
+      // If your backend does NOT include picture URL, 
+      // you can get picture from the Google ID token's payload:
+      // (response contains raw JWT id token in response.credential)
+      // Let's decode the raw Google id token for picture:
+      const googlePayload = JSON.parse(atob(response.credential.split('.')[1]));
+      const pictureUrl = googlePayload.picture || "assets/default-user.png";
+
+      localStorage.setItem("userPic", pictureUrl);
+
       welcomeMsg.textContent = `Welcome, ${userData.sub}`;
+
       loginForm.style.display = "none";
       googleSigninBtn.style.display = "none";
+
+      userInfo.style.display = "flex";
       logoutBtn.style.display = "inline-block";
+      userPic.src = pictureUrl;
+
     } else {
       loginError.textContent = data.detail || "Google login failed";
     }
