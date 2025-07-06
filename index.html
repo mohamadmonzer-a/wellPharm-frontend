@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mini AliExpress</title>
+  <title>wellPharm – Pharmacy Online</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
+  <!-- 🔶 HEADER -->
   <header>
     <div class="navbar">
       <img src="assets/logo.png" alt="Logo" class="logo">
@@ -16,25 +17,31 @@
     </div>
   </header>
 
+  <!-- 🔷 CATEGORIES NAV -->
   <nav class="categories">
     <ul>
-      <li>Electronics</li>
-      <li>Beauty</li>
+      <li>All</li>
       <li>Health</li>
-      <li>Home</li>
+      <li>Beauty</li>
       <li>Kids</li>
+      <li>Medical Tools</li>
     </ul>
   </nav>
 
+  <!-- 🔥 HERO BANNER -->
   <section class="hero">
     <h2>🔥 Big Discounts This Week!</h2>
-    <p>Up to 50% off on selected items</p>
+    <p>Up to 50% off on selected health products</p>
   </section>
-<section class="products" id="products-container">
-  <!-- JS will insert product cards here -->
-</section>
 
-  <section class="products">
+  <!-- 🧪 DYNAMIC PRODUCT LIST (via JS) -->
+  <main>
+    <h1 class="section-title">🛒 Featured Products</h1>
+    <div id="product-list" class="grid"></div>
+  </main>
+
+  <!-- 📦 STATIC EXAMPLES (optional) -->
+  <section class="products static-examples">
     <div class="product-card">
       <img src="assets/sample-product.jpg" alt="Product">
       <h3>Smartwatch 2025</h3>
@@ -47,13 +54,14 @@
       <p>$29.99</p>
       <button onclick="addToCart('Wireless Earbuds')">Add to Cart</button>
     </div>
-    <!-- Add more products here -->
   </section>
 
+  <!-- 🔻 FOOTER -->
   <footer>
     <p>© 2025 wellPharm. All rights reserved.</p>
   </footer>
 
-  <script src="script.js"></script>
+  <!-- JS scripts -->
+  <script src="index.js"></script>
 </body>
 </html>
