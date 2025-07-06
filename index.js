@@ -24,3 +24,28 @@ document.addEventListener("DOMContentLoaded", async () => {
     container.innerHTML = "<p>⚠️ Could not load products.</p>";
   }
 });
+
+
+
+
+document.getElementById("login-form").addEventListener("submit", async e => {
+  e.preventDefault();
+  const email = e.target.email.value;
+  const password = e.target.password.value;
+  
+  const res = await fetch("https://your-backend-url/register_or_login_endpoint", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password }),
+  });
+
+  const data = await res.json();
+
+  if (res.ok) {
+    // Save token for authenticated requests
+    localStorage.setItem("token", data.access_token);
+    alert("Login successful!");
+  } else {
+    alert("Error: " + data.detail);
+  }
+});
