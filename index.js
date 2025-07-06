@@ -28,12 +28,45 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+// Existing DOMContentLoaded code remains the same...
+
+// Google Sign-In callback function
+async function handleGoogleCredentialResponse(response) {
+  try {
+    const res = await fetch("https://wellpharm-backend.onrender.com/api/auth/google", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id_token: response.credential }),
+    });
+    const data = await res.json();
+    if (res.ok) {
+      localStorage.setItem("token", data.access_token);
+      alert("Google login successful!");
+    } else {
+      alert("Google login error: " + data.detail);
+    }
+  } catch (err) {
+    alert("Network error during Google login");
+  }
+}
+
+// Your existing login form handler remains
 document.getElementById("login-form").addEventListener("submit", async e => {
   e.preventDefault();
   const email = e.target.email.value;
   const password = e.target.password.value;
   
-  const res = await fetch("https://your-backend-url/register_or_login_endpoint", {
+  const res = await fetch("https://wellpharm-backend.onrender.com/api/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password }),
@@ -42,7 +75,6 @@ document.getElementById("login-form").addEventListener("submit", async e => {
   const data = await res.json();
 
   if (res.ok) {
-    // Save token for authenticated requests
     localStorage.setItem("token", data.access_token);
     alert("Login successful!");
   } else {

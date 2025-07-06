@@ -5,8 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>wellPharm – Pharmacy Online</title>
   <link rel="stylesheet" href="style.css" />
+  <!-- Add in your <head> or before </body> -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+
 </head>
 <body>
+
+<!-- Add this button somewhere visible -->
+<div id="g_id_onload"
+     data-client_id="YOUR_GOOGLE_CLIENT_ID"
+     data-callback="handleGoogleCredentialResponse"
+     data-auto_prompt="false">
+</div>
+<div class="g_id_signin" data-type="standard"></div>
+
 
   <!-- 🔶 HEADER -->
   <header>
