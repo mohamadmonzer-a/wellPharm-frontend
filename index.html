@@ -2,34 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>wellPharm – Pharmacy Online</title>
   <link rel="stylesheet" href="style.css" />
-  <!-- Add in your <head> or before </body> -->
-<script src="https://accounts.google.com/gsi/client" async defer></script>
-
+  <!-- Google Identity Services -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
 
-<!-- Add this button somewhere visible -->
-<div id="g_id_onload"
-     data-client_id="YOUR_GOOGLE_CLIENT_ID"
-     data-callback="handleGoogleCredentialResponse"
-     data-auto_prompt="false">
-</div>
-<div class="g_id_signin" data-type="standard"></div>
+  <!-- Google Sign-In -->
+  <div id="g_id_onload"
+       data-client_id="800148285307-b2maikpiqh40p67su8nko3j9qe97b2os.apps.googleusercontent.com"
+       data-callback="handleGoogleCredentialResponse"
+       data-auto_prompt="false">
+  </div>
+  <div class="g_id_signin" data-type="standard"></div>
 
-
-  <!-- 🔶 HEADER -->
+  <!-- Header -->
   <header>
     <div class="navbar">
-      <img src="assets/logo.png" alt="Logo" class="logo">
-      <input type="text" placeholder="Search products..." class="search-bar">
+      <img src="assets/logo.png" alt="Logo" class="logo" />
+      <input type="text" placeholder="Search products..." class="search-bar" />
       <button class="cart-btn">🛒 Cart</button>
     </div>
   </header>
 
-  <!-- 🔷 CATEGORIES NAV -->
+  <!-- Categories -->
   <nav class="categories">
     <ul>
       <li>All</li>
@@ -40,47 +38,38 @@
     </ul>
   </nav>
 
-  <!-- 🔥 HERO BANNER -->
+  <!-- Hero Banner -->
   <section class="hero">
     <h2>🔥 Big Discounts This Week!</h2>
     <p>Up to 50% off on selected health products</p>
   </section>
 
-  <!-- 🧪 DYNAMIC PRODUCT LIST (via JS) -->
+  <!-- Product List -->
   <main>
     <h1 class="section-title">🛒 Featured Products</h1>
     <div id="product-list" class="grid"></div>
   </main>
-<form id="login-form">
-  <input type="email" id="email" placeholder="Email" required />
-  <input type="password" id="password" placeholder="Password" required />
-  <button type="submit">Login</button>
-</form>
 
+  <!-- Login Form -->
+  <section id="auth-section">
+    <form id="login-form">
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
 
-  <!-- 📦 STATIC EXAMPLES (optional) -->
-  <section class="products static-examples">
-    <div class="product-card">
-      <img src="assets/sample-product.jpg" alt="Product">
-      <h3>Smartwatch 2025</h3>
-      <p>$49.99</p>
-      <button onclick="addToCart('Smartwatch 2025')">Add to Cart</button>
-    </div>
-    <div class="product-card">
-      <img src="assets/sample-product.jpg" alt="Product">
-      <h3>Wireless Earbuds</h3>
-      <p>$29.99</p>
-      <button onclick="addToCart('Wireless Earbuds')">Add to Cart</button>
-    </div>
+    <button id="logout-btn" style="display:none;">Logout</button>
+
+    <p id="welcome-msg" style="color: green; font-weight: bold;"></p>
+    <p id="login-error" style="color: red;"></p>
   </section>
 
-  <!-- 🔻 FOOTER -->
+  <!-- Footer -->
   <footer>
     <p>© 2025 wellPharm. All rights reserved.</p>
   </footer>
 
-  <!-- JS scripts -->
+  <!-- JS -->
   <script src="index.js"></script>
 </body>
-
 </html>
